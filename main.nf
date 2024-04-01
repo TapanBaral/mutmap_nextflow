@@ -17,15 +17,14 @@ def genome_fasta_ch            = Channel.value(params.genome_fasta ? file(params
 
 process mutmap {
  container  params.dockerfile
- publishDir "${params.output}", mode: 'copy'
+ publishDir "${params.output_dir}", mode: 'copy'
  tag "${sample_id}"
   input:
     tuple  val(sample_id), file(fastq1), file(fastq1), file(bulk1_R1), file(bulk1_R2), file(bulk2_R1), file(bulk2_R2)
     path fasta
 
   output:
-    path "${sample_id}/*" emit: mutmap_results
-    
+    path "${sample_id}/*" , emit: mutmap_results
 
   script:
   """
