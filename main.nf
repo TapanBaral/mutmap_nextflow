@@ -24,7 +24,7 @@ process mutmap {
     path fasta
 
   output:
-    path "${sample_id}/*" , emit: mutmap_results
+    path("mutmap_results/*") , emit: mutmap_results
 
   script:
   """
@@ -34,7 +34,7 @@ process mutmap {
         -b ${bulk2_R1},${bulk2_R2} \\
         -n ${params.num_threads} \\
         --species 'Rice' \\
-        -o ${params.output_dir}/${sample_id}
+        -o ${params.output_dir}/mutmap_results
   """
 }
 
