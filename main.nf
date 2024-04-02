@@ -34,7 +34,8 @@ process mutmap {
         -c ${fastq1},${fastq1} \\
         -b ${bulk1_R1},${bulk1_R2} \\
         -b ${bulk2_R1},${bulk2_R2} \\
-        -n ${task.cpus} \\
+        -n 400 \\
+        -t ${task.cpus} \\
         --species 'Rice' \\
         -o mutmap_results
   """
