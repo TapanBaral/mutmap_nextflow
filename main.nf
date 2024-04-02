@@ -19,6 +19,7 @@ process mutmap {
  container  params.dockerfile
  publishDir "${params.output_dir}", mode: 'copy'
  tag "${sample_id}"
+ cpu = params.num_threads
   input:
     tuple  val(sample_id), file(fastq1), file(fastq1), file(bulk1_R1), file(bulk1_R2), file(bulk2_R1), file(bulk2_R2)
     path fasta
@@ -28,13 +29,14 @@ process mutmap {
 
   script:
   """
+ 
   mutmap -r ${fasta} \\
         -c ${fastq1},${fastq1} \\
         -b ${bulk1_R1},${bulk1_R2} \\
         -b ${bulk2_R1},${bulk2_R2} \\
-        -n ${params.num_threads} \\
+        -n ${task.cpus} \\
         --species 'Rice' \\
-        -o ${params.output_dir}/mutmap_results
+        -o mutmap_results
   """
 }
 
